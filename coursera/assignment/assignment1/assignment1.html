@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>Assignment 1</title>
+
+<link rel="stylesheet" href="assignment1.css">
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 vPosition;
+uniform float angel;
+uniform vec2 vRotation;
+void main()
+{
+
+	 vec4 rotatedPosition = vec4(
+     vPosition.x * cos(angel* sqrt(pow(vPosition.x,2.0) + pow(vPosition.y,2.0))) - vPosition.y * sin(angel* sqrt(pow(vPosition.x,2.0) + pow(vPosition.y,2.0))),
+     vPosition.x * sin(angel* sqrt(pow(vPosition.x,2.0) + pow(vPosition.y,2.0))) + vPosition.y * cos(angel* sqrt(pow(vPosition.x,2.0) + pow(vPosition.y,2.0))),1,1);
+
+    gl_Position = rotatedPosition;
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+void main()
+{
+    gl_FragColor = vec4( 0.0, 1.0, 1.0, 1.0 );
+}
+</script>
+
+<script type="text/javascript" src="../Common/webgl-utils.js"></script>
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<script type="text/javascript" src="../Common/MV.js"></script>
+<script type="text/javascript" src="assignment1.js"></script>
+</head>
+
+<body>
+<div class="table">
+	<div id="control">
+		<h3>subdivisions</h3>
+		<input id="sub" type="range" min="0" max="7" step="1" value="0" />
+		<p id="subText">0</p>
+		<h3>angel</h3>
+		<input id="angel" type="range" min="0" max="360" step="1" value="0" />
+		<p id="angelText">0</p>
+	</div>
+	<canvas id="gl-canvas" width="512" height="512">
+	Oops ... your browser doesn't support the HTML5 canvas element
+	</canvas>
+</div>
+</body>
+</html>

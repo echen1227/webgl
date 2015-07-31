@@ -1,0 +1,9 @@
+.table{
+	display: flex;
+}
+#control{
+	margin: 100px;
+}
+#gl-canvas{
+	margin: 150px;
+}
