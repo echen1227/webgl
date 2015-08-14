@@ -14,8 +14,8 @@ var left = -2.0;
 var right = 2.0;
 var ytop = 2.0;
 var bottom = -2.0;
-var near = -10;
-var far = -7;
+var near = 50;
+var far = -50;
 
 var modelViewMatrix, projectionMatrix;
 var eye;
@@ -68,10 +68,10 @@ window.onload = function init() {
     shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "modelViewMatrix");
 
     //camera matrix
-    eye = vec3( radius*Math.sin(theta)*Math.cos(phi),
-                radius*Math.sin(theta)*Math.sin(phi),
-                radius*Math.cos(theta));
-    // eye = vec3(1,1,1);
+    // eye = vec3( radius*Math.sin(theta)*Math.cos(phi),
+    //             radius*Math.sin(theta)*Math.sin(phi),
+    //             radius*Math.cos(theta));
+    eye = vec3(0.5,0.5,0.5);
     modelViewMatrix = lookAt(eye, lookat , up);
     projectionMatrix = ortho(left, right, bottom, ytop, near, far);
     // projectionMatrix = perspective(90.0,1.0,near,far);
@@ -81,12 +81,12 @@ window.onload = function init() {
 
 
     // init axis
-    var points = [  vec4(100.0, 0.0, 0.0, 1),
-                    vec4(-100.0, 0.0, 0.0, 1),
-                    vec4(0.0, 100.0, 0.0, 1),
-                    vec4(0.0, -100.0, 0.0, 1),
-                    vec4(0.0, 0.0, 100.0, 1),
-                    vec4(0.0, 0.0, -100.0, 1)];
+    var points = [  vec4(100.0, 0.0, 0.0, 1.0),
+                    vec4(-100.0, 0.0, 0.0, 1.0),
+                    vec4(0.0, 100.0, 0.0, 1.0),
+                    vec4(0.0, -100.0, 0.0, 1.0),
+                    vec4(0.0, 0.0, 100.0, 1.0),
+                    vec4(0.0, 0.0, -100.0, 1.0)];
 
     var colors = [  vec4(1.0,0.0,0.0,1.0),
                     vec4(1.0,0.0,0.0,1.0),
@@ -139,7 +139,19 @@ function createCube()
     ];
     cube.colorArray = [];
     for ( var i = 0; i < cube.vertexArray.length; i++ ) {
-        cube.colorArray.push(vec4(0.0, 0.0, 0.0, 1.0 ));
+
+        if(i <=5)
+            cube.colorArray.push(vec4(0.0, 0.0, 0.0, 1.0 ));
+        else if( i <= 11)
+                cube.colorArray.push(vec4(1.0, 0.0, 0.0, 1.0 ));
+           else if( i <= 17)
+                cube.colorArray.push(vec4(0.0, 1.0, 0.0, 1.0 ));
+           else if( i <= 23)
+                cube.colorArray.push(vec4(0.0, 0.0, 1.0, 1.0 ));
+            else if( i <= 29)
+                cube.colorArray.push(vec4(1.0, 1.0, 0.0, 1.0 ));
+            else if( i <= 35)
+                cube.colorArray.push(vec4(0.0, 1.0, 1.0, 1.0 ));
     }
 
     var vBuffer = gl.createBuffer();
