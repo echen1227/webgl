@@ -10,16 +10,16 @@ var theta  = 0.0;
 var phi    = 0.0;
 var dr = 5.0 * Math.PI/180.0;
 
-var left = -2.0;
-var right = 2.0;
-var ytop = 2.0;
-var bottom = -2.0;
-var near = 50;
-var far = -50;
+var viewLeft = -2.0;
+var viewRight = 2.0;
+var viewTop = 2.0;
+var viewBottom = -2.0;
+var viewNear = -50;
+var viewFar = 50;
 
 var modelViewMatrix, projectionMatrix;
-var eye;
-const lookat = vec3(0.0, 0.0, 0.0);
+var eyePoint;
+const lookatPoint = vec3(0.0, 0.0, 0.0);
 const up = vec3(0.0, 1.0, 0.0);
 
 var axisVertexBuffer;
@@ -71,9 +71,9 @@ window.onload = function init() {
     // eye = vec3( radius*Math.sin(theta)*Math.cos(phi),
     //             radius*Math.sin(theta)*Math.sin(phi),
     //             radius*Math.cos(theta));
-    eye = vec3(0.5,0.5,0.5);
-    modelViewMatrix = lookAt(eye, lookat , up);
-    projectionMatrix = ortho(left, right, bottom, ytop, near, far);
+    eyePoint = vec3(1,1,1);
+    modelViewMatrix = lookAt(eyePoint, lookatPoint , up);
+    projectionMatrix = ortho(viewLeft, viewRight, viewBottom, viewTop, viewNear, viewFar);
     // projectionMatrix = perspective(90.0,1.0,near,far);
 
     gl.uniformMatrix4fv( shaderProgram.mvMatrixUniform, false, flatten(modelViewMatrix) );
@@ -82,11 +82,11 @@ window.onload = function init() {
 
     // init axis
     var points = [  vec4(100.0, 0.0, 0.0, 1.0),
-                    vec4(-100.0, 0.0, 0.0, 1.0),
+                    vec4(-1, 0.0, 0.0, 1.0),
                     vec4(0.0, 100.0, 0.0, 1.0),
-                    vec4(0.0, -100.0, 0.0, 1.0),
+                    vec4(0.0, -1, 0.0, 1.0),
                     vec4(0.0, 0.0, 100.0, 1.0),
-                    vec4(0.0, 0.0, -100.0, 1.0)];
+                    vec4(0.0, 0.0, -1, 1.0)];
 
     var colors = [  vec4(1.0,0.0,0.0,1.0),
                     vec4(1.0,0.0,0.0,1.0),
